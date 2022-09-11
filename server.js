@@ -12,6 +12,7 @@ const authRouter = require("./routes/authRouter");
 //middleware
 app.use(cors());
 app.use(morgan("tiny"));
+app.use(express.json());
 
 //routes
 app.get("/", (req, res) => {
