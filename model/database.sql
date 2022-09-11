@@ -3,7 +3,8 @@ CREATE TABLE "user" (
   "email" varchar(20) NOT NULL,
   "username" varchar(10) NOT NULL,
   "password" varchar(50) NOT NULL,
-  PRIMARY KEY ("id")
+  PRIMARY KEY ("id"),
+  CONSTRAINT email_username_unique UNIQUE (email,username)
 );
 
 CREATE TABLE "cart" (
