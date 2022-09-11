@@ -8,6 +8,7 @@ const port = process.env.PORT || 8000;
 
 //routers
 const authRouter = require("./routes/authRouter");
+const apiRouter = require("./routes/apiRouter");
 
 //middleware
 app.use(cors());
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
   res.json({ msg: "home path response" });
 });
 app.use("/auth", authRouter);
+app.use("/api", apiRouter);
 
 app.listen(port, () => {
   console.log("listening on " + port);
