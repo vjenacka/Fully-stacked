@@ -7,6 +7,7 @@ const isValidUser = (username, email, password) => {
       isError: true,
       errorMessage: "All fields must be filled",
     };
+  //check if username length over 3 and under 25 characters
   if (username.length < 3 || username.length > 25)
     return {
       isError: true,
