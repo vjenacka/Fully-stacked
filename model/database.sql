@@ -2,8 +2,9 @@ CREATE TABLE "user" (
   "id" uuid DEFAULT uuid_generate_v4(),
   "email" varchar(20) NOT NULL,
   "username" varchar(10) NOT NULL,
-  "password" varchar(50) NOT NULL,
-  PRIMARY KEY ("id")
+  "password" varchar(150) NOT NULL,
+  PRIMARY KEY ("id"),
+  CONSTRAINT email_username_unique UNIQUE (email,username)
 );
 
 CREATE TABLE "cart" (
