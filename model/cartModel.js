@@ -11,7 +11,7 @@ const getUserCart = async user_id => {
 
   return cartItems.rows;
 };
-//adds a product if not in cart and adds to quantity if
+//adds a product if not in cart or increase quantity
 const addProductToCart = async (user_id, product_id) => {
   if (!user_id || !product_id) throw Error("User id or product id missing");
   //check if cart item in db
