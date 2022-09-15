@@ -28,7 +28,11 @@ const isValidUser = (username, email, password) => {
     };
   //check if strong password
   if (!validator.isStrongPassword(password))
-    return { isError: true, errorMessage: "Password to weak" };
+    return {
+      isError: true,
+      errorMessage:
+        "Password should contain more than 8 characters, at least one upper case and lower case letter, a number and a special character",
+    };
 
   return { isError: false, errorMessage: "" };
 };

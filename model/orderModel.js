@@ -20,4 +20,21 @@ const getOrderById = async id => {
   return { ...order.rows[0], products: products.rows };
 };
 
-module.exports = { getAllOrders, getOrderById };
+const createOrder = async order => {
+  const newOrderID = await pool.query(
+    'INSERT INTO "order"(user_id,status,date,count,total_cost) VALUES ($1,$2,$3,$4,$5) RETURNING id',
+    [order.user_id, "pending", order.date, order.count, order.total_cost]
+  );
+  //add all products to the order_item table
+  const { id } = newOrderID.rows[0];
+  const { products } = order;
+  products.forEach(async product => {
+    await pool.query(
+      "INSERT INTO order_item(order_id,product_id,count) VALUES($1,$2,$3)",
+      [id, product.product_id, product.count]
+    );
+  });
+  return id;
+};
+
+module.exports = { getAllOrders, getOrderById, createOrder };
