@@ -18,7 +18,6 @@ const queryUserUpdate = async (
   password,
   address,
   city,
-  state,
   country
 ) => {
   //validate user credentials
@@ -41,8 +40,8 @@ const queryUserUpdate = async (
   const hash = await bcrypt.hash(password, salt);
 
   const updatedUser = await pool.query(
-    'UPDATE "user" SET full_name=$1, username=$2, email=$3, password=$4, address=$5, city=$6, state=$7, country=$8 WHERE id=$9 RETURNING *',
-    [fullName, username, email, hash, address, city, state, country, id]
+    'UPDATE "user" SET full_name=$1, username=$2, email=$3, password=$4, address=$5, city=$6, country=$7 WHERE id=$8 RETURNING *',
+    [fullName, username, email, hash, address, city, country, id]
   );
 
   return updatedUser.rows[0];

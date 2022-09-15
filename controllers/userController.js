@@ -11,7 +11,6 @@ const getUser = async (req, res) => {
       username: user.username,
       address: user.address,
       city: user.city,
-      state: user.state,
       country: user.country,
       fullName: user.full_name,
     });
@@ -22,7 +21,7 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { fullName, username, email, password, address, city, state, country } =
+  const { fullName, username, email, password, address, city, country } =
     req.body;
 
   try {
@@ -34,7 +33,6 @@ const updateUser = async (req, res) => {
       password,
       address,
       city,
-      state,
       country
     );
 
