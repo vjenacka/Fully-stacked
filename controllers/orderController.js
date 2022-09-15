@@ -1,4 +1,4 @@
-const { getAllOrders } = require("../model/orderModel");
+const { getAllOrders, getOrderById } = require("../model/orderModel");
 
 const getOrders = async (req, res) => {
   try {
@@ -10,4 +10,16 @@ const getOrders = async (req, res) => {
   }
 };
 
-module.exports = { getOrders };
+const getOrder = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const order = await getOrderById(id);
+
+    res.json(order);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = { getOrders, getOrder };
