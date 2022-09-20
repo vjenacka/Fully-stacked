@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 4000;
 
 //routers
 const authRouter = require("./routes/authRouter");
