@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 
 const Product = ({ product }) => {
   const [isHovered, setHover] = useState(false);
-  const handleHover = () => {};
+  const style = {
+    visibility: isHovered ? "visible" : "hidden",
+  };
   return (
     <div
       className="product"
@@ -15,7 +17,7 @@ const Product = ({ product }) => {
         <div>
           <h4>{product.name}</h4>
           <p>{product.price} KM</p>
-          <button>Add to cart</button>
+          <button style={style}>Add to cart</button>
         </div>
       </Link>
     </div>
