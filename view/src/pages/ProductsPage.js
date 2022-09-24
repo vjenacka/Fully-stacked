@@ -24,7 +24,7 @@ const ProductsPage = () => {
 
       setLoading(false);
     };
-    console.log(category);
+
     fetchProducts();
   }, []);
 

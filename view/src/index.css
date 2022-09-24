@@ -123,6 +123,22 @@ main {
   font-weight: bold;
   font-size: 0.8rem;
 }
+/*Products select filter*/
+.filter-products {
+  padding: 10px 0 10px 20px;
+}
+.filter-products label {
+  font-size: 1.1rem;
+}
+#product-select {
+  display: block;
+  width: 200px;
+  padding: 10px;
+  margin: 10px 0 0 10px;
+  border: 2px solid var(--bg-color);
+  border-radius: 8px;
+  font-weight: bold;
+}
 /*Product details*/
 .product-details {
   max-height: 400px;
