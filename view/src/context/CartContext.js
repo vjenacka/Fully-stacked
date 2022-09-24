@@ -16,6 +16,15 @@ export const cartReducer = (state, action) => {
       return {
         cart: state.cart.filter(ele => ele.product_id !== action.payload),
       };
+    case "ADD_ONE":
+      return {
+        cart: state.cart.map(ele => {
+          if (ele.product_id === action.payload) {
+            ele.count++;
+          }
+          return ele;
+        }),
+      };
     default:
       return state;
   }

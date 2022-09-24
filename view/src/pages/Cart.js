@@ -5,7 +5,7 @@ import { useCartContext } from "../hooks/useCartContext";
 
 function Cart() {
   const { cart, dispatch } = useCartContext();
-
+  const [total, setTotal] = useState(0);
   useEffect(() => {
     const getCart = async id => {
       const response = await fetch(
@@ -13,13 +13,30 @@ function Cart() {
       );
       const json = await response.json();
 
+      let sum = 0;
       if (response.ok) {
         dispatch({ type: "SET_CART", payload: json });
+        //calculates the total price of item quantity
+        json.forEach(ele => {
+          sum += Number((ele.price * ele.count).toFixed(2));
+        });
+        setTotal(sum);
       }
     };
 
     getCart();
   }, []);
+
+  const addToTotal = val => {
+    const newTotal = Number((total + parseFloat(val)).toFixed(2));
+    setTotal(newTotal);
+  };
+
+  const removeFromTotal = val => {
+    const newTotal = Number(total - parseFloat(val).toFixed(2));
+    setTotal(newTotal);
+  };
+
   return (
     <main>
       {!cart ? (
@@ -31,7 +48,7 @@ function Cart() {
             <thead>
               <tr>
                 <th>PRODUCT</th>
-                <th>AMOUNT</th>
+                <th>PRICE</th>
                 <th>QUANTITY</th>
                 <th>TOTAL</th>
                 <th>REMOVE</th>
@@ -39,12 +56,18 @@ function Cart() {
             </thead>
             <tbody>
               {cart.map(item => (
-                <CartItem key={item.product_id} product={item} />
+                <CartItem
+                  key={item.product_id}
+                  product={item}
+                  addToTotal={addToTotal}
+                  removeFromTotal={removeFromTotal}
+                />
               ))}
             </tbody>
           </table>
         </div>
       )}
+      <p>Total cost: {total} KM</p>
     </main>
   );
 }
