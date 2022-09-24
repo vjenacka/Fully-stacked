@@ -1,54 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
+import LoadingSpinner from "../components/LoadingSpinner";
+import { useCartContext } from "../hooks/useCartContext";
 
 function Cart() {
-  const [products, setProducts] = useState([
-    {
-      product_id: 1,
-      count: 1,
-      name: "Mlijeko svježe 2,8%mm 1L Meggle",
-      price: "2.20",
-    },
-    {
-      product_id: 2,
-      count: 1,
-      name: "PŠENIČNO BIJELO BRAŠNO TIP 500",
-      price: "27.95",
-    },
-    {
-      product_id: 3,
-      count: 2,
-      name: "Deterdžent za suđe apple 800ml Fairy",
-      price: "3.95",
-    },
-    {
-      product_id: 4,
-      count: 4,
-      name: "Palmolive Šampon long&shine 350 ml",
-      price: "2.45",
-    },
-  ]);
+  const { cart, dispatch } = useCartContext();
+
+  useEffect(() => {
+    const getCart = async id => {
+      const response = await fetch(
+        "/api/cart/1375cba6-2901-4639-a4b0-01b66794ed4b"
+      );
+      const json = await response.json();
+
+      if (response.ok) {
+        dispatch({ type: "SET_CART", payload: json });
+      }
+    };
+
+    getCart();
+  }, []);
   return (
     <main>
-      <div className="cart">
-        <h2>Shopping Cart</h2>
-        <table className="cart-table">
-          <thead>
-            <tr>
-              <th>PRODUCT</th>
-              <th>AMOUNT</th>
-              <th>QUANTITY</th>
-              <th>TOTAL</th>
-              <th>REMOVE</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map(product => (
-              <CartItem key={product.product_id} product={product}></CartItem>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {!cart ? (
+        <LoadingSpinner></LoadingSpinner>
+      ) : (
+        <div className="cart">
+          <h2>Shopping Cart</h2>
+          <table className="cart-table">
+            <thead>
+              <tr>
+                <th>PRODUCT</th>
+                <th>AMOUNT</th>
+                <th>QUANTITY</th>
+                <th>TOTAL</th>
+                <th>REMOVE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map(item => (
+                <CartItem key={item.product_id} product={item} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </main>
   );
 }

@@ -7,7 +7,7 @@ const {
   addOne,
 } = require("../controllers/cartController");
 
-router.get("/", getCart);
+router.get("/:user_id", getCart);
 router.post("/", addProduct);
 router.put("/add", addOne);
 router.put("/remove", removeOne);
