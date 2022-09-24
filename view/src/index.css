@@ -182,3 +182,40 @@ main {
   color: #fff;
   font-weight: bold;
 }
+/*Cart css*/
+.cart {
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+}
+.cart h2 {
+  font-size: 2.2rem;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+.cart-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.cart-table thead {
+  padding: 5px 0;
+}
+.cart-table tr {
+  display: flex;
+  padding: 10px 0;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #374151;
+}
+.cart-table td,
+.cart-table th {
+  width: 20%;
+  text-align: center;
+}
+.cart-item button {
+  color: var(--bg-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: inherit;
+}
