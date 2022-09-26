@@ -21,7 +21,7 @@ const Product = ({ product }) => {
 
     const json = await response.json();
 
-    if (response.ok) console.log("product added", json);
+    if (response.ok) console.log("product added");
   };
   return (
     <div

@@ -5,6 +5,7 @@
   --bg-color: #7c3aed;
   --error: #e7195a;
 }
+
 /*CSS reset*/
 * {
   margin: 0;
@@ -28,26 +29,7 @@ button:hover {
   cursor: pointer;
   background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
 }
-/*loading animation spinner*/
-@keyframes spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-.loading-spinner {
-  position: relative;
-  top: 180px;
-  left: 45%;
-  width: 150px;
-  height: 150px;
-  border: 10px solid #f3f3f3; /* Light grey */
-  border-top: 10px solid var(--bg-color); /* Black */
-  border-radius: 50%;
-  animation: spinner 1.5s linear infinite;
-}
+
 /*header styles*/
 header {
   position: fixed;
@@ -81,6 +63,26 @@ nav a {
 nav a:hover {
   background-color: #fff;
   transition: all 0.4s ease;
+}
+/*loading spiner*/
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  position: relative;
+  top: 180px;
+  left: 45%;
+  width: 150px;
+  height: 150px;
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid var(--bg-color); /* Black */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
 }
 /*products page styles*/
 main {
@@ -237,4 +239,39 @@ main {
 .count-btn:disabled {
   background: #cccccc;
   cursor: no-drop;
+}
+.cart p {
+  margin-top: 20px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.cart p span {
+  color: var(--bg-color);
+  margin-right: 5px;
+}
+/*Empty cart*/
+.cart-empty {
+  padding-top: 30px;
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+}
+.cart-empty :nth-child(1) {
+  font-size: 8rem;
+  color: var(--bg-color);
+}
+.cart-empty p {
+  text-align: center;
+}
+.cart-empty a {
+  display: block;
+  width: 70%;
+  margin: 15px auto 0 auto;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  background-color: var(--bg-color);
+  color: #fff;
+  font-weight: bold;
 }

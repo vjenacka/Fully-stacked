@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { useCartContext } from "../hooks/useCartContext";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState({});
   const [isLoading, setLoading] = useState(false);
   const { id } = useParams();
-  const { dispatch } = useCartContext();
 
   useEffect(() => {
     const fetchProduct = async id => {
@@ -37,7 +35,7 @@ const ProductDetails = () => {
 
     const json = await response.json();
 
-    if (response.ok) console.log("product added", json);
+    if (response.ok) console.log("product added");
   };
   return (
     <>

@@ -25,6 +25,15 @@ export const cartReducer = (state, action) => {
           return ele;
         }),
       };
+    case "REMOVE_ONE":
+      return {
+        cart: state.cart.map(ele => {
+          if (ele.product_id === action.payload) {
+            ele.count--;
+          }
+          return ele;
+        }),
+      };
     default:
       return state;
   }
