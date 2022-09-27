@@ -7,7 +7,7 @@ const {
 } = require("../model/cartModel");
 
 const getCart = async (req, res) => {
-  const { user_id } = req.body;
+  const { user_id } = req.params;
 
   try {
     const cart = await getUserCart(user_id);
@@ -32,10 +32,9 @@ const addProduct = async (req, res) => {
 
 const removeProduct = async (req, res) => {
   const { user_id, product_id } = req.body;
-
   try {
     await removeProductFromCart(user_id, product_id);
-    res.send("Item removed");
+    res.json("Item removed");
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

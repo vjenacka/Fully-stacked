@@ -1,7 +1,7 @@
 const Category = ({ category, handleCategoryChange }) => {
   return (
     <div className="filter-products">
-      <label for="product-select">Filter products by category:</label>
+      <label htmlFor="product-select">Filter products by category:</label>
       <select
         id="product-select"
         onChange={e => handleCategoryChange(e.target.value)}
