@@ -1,31 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Register = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [conPassword, setConPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { dispatch } = useAuthContext();
+  const navigate = useNavigate();
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setIsLoading(true);
+    if (password !== conPassword) {
+      setError("Passwords must match!");
+      setPassword("");
+      setConPassword("");
+      return;
+    }
+
+    const response = await fetch("/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, email, password }),
+    });
+    const json = await response.json();
+
+    if (!response.ok) {
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setConPassword("");
+      setError(json.error);
+    }
+
+    if (response.ok) {
+      //add user email, username and token to local storage
+      localStorage.setItem("user", JSON.stringify(json));
+      dispatch({ type: "LOGIN", payload: json });
+      setError(false);
+    }
+    setIsLoading(false);
+    navigate("/");
+  };
   return (
     <div className="auth-form">
       <h3>Create Account</h3>
-      <form>
+      <form onSubmit={e => handleSubmit(e)}>
         <div className="form-control">
           <label htmlFor="username">Username</label>
-          <input type="text" name="username" />
-        </div>
-        <div className="form-control">
-          <label htmlFor="fullname">Fullname</label>
-          <input type="text" name="fullname" />
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+          />
         </div>
         <div className="form-control">
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" />
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
         </div>
         <div className="form-control">
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
         </div>
         <div className="form-control">
           <label htmlFor="confirm-password">Confirm Password</label>
-          <input type="password" name="confirm-password" />
+          <input
+            type="password"
+            name="confirm-password"
+            value={conPassword}
+            onChange={e => setConPassword(e.target.value)}
+          />
         </div>
-        <button>Create Account</button>
+        {error && <div className="auth-error">{error}</div>}
+        <button disabled={isLoading}>Create Account</button>
       </form>
     </div>
   );

@@ -310,3 +310,11 @@ main {
   font-weight: bold;
   font-size: 0.8rem;
 }
+.auth-error {
+  padding: 10px;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #fff;
+  background-color: var(--error);
+  border-radius: 5px;
+}
