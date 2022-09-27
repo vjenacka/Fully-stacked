@@ -20,6 +20,23 @@ const ProductDetails = () => {
 
     fetchProduct(id);
   }, []);
+
+  const handleAddCart = async () => {
+    const response = await fetch("/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: "1375cba6-2901-4639-a4b0-01b66794ed4b",
+        product_id: id,
+      }),
+    });
+
+    const json = await response.json();
+
+    if (response.ok) console.log("product added");
+  };
   return (
     <>
       {isLoading ? (
@@ -33,7 +50,7 @@ const ProductDetails = () => {
             <hr />
             <div>
               <span>{product.price} KM</span>
-              <button>Add to cart</button>
+              <button onClick={() => handleAddCart()}>Add to cart</button>
             </div>
           </div>
         </div>
