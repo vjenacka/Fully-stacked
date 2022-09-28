@@ -1,21 +1,20 @@
 import React from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useCartContext } from "../hooks/useCartContext";
 
 const CartItem = ({ product, addToTotal, removeFromTotal }) => {
   const { dispatch } = useCartContext();
+  const { user } = useAuthContext();
   //remove cart item and update db
   const handleRemoveItem = async () => {
     const res = await fetch("/api/cart", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({
-        user_id: "1375cba6-2901-4639-a4b0-01b66794ed4b",
-        product_id: product.product_id,
-      }),
+      body: JSON.stringify({ product_id: product.product_id }),
     });
-    const json = await res.json();
 
     if (res.ok) {
       //remove total price of quantity of items
@@ -30,13 +29,10 @@ const CartItem = ({ product, addToTotal, removeFromTotal }) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({
-        user_id: "1375cba6-2901-4639-a4b0-01b66794ed4b",
-        product_id: product.product_id,
-      }),
+      body: JSON.stringify({ product_id: product.product_id }),
     });
-    const json = await res.json();
 
     if (res.ok) {
       dispatch({ type: "ADD_ONE", payload: product.product_id });
@@ -51,14 +47,10 @@ const CartItem = ({ product, addToTotal, removeFromTotal }) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({
-        user_id: "1375cba6-2901-4639-a4b0-01b66794ed4b",
-        product_id: product.product_id,
-      }),
+      body: JSON.stringify({ product_id: product.product_id }),
     });
-
-    const json = await res.json();
 
     if (res.ok) {
       removeFromTotal(Number(product.price));

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { toast } from "react-toastify";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState({});
   const [isLoading, setLoading] = useState(false);
+
   const { id } = useParams();
+  const { user } = useAuthContext();
 
   useEffect(() => {
-    const fetchProduct = async id => {
+    const fetchProduct = async () => {
       setLoading(true);
       const response = await fetch(`/api/product/${id}`);
       const json = await response.json();
@@ -19,23 +23,36 @@ const ProductDetails = () => {
     };
 
     fetchProduct(id);
-  }, []);
+  }, [id]);
 
   const handleAddCart = async () => {
+    if (!user) {
+      toast.info("You need to be logged in to add a product to cart", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+      });
+      return;
+    }
     const response = await fetch("/api/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({
-        user_id: "1375cba6-2901-4639-a4b0-01b66794ed4b",
-        product_id: id,
-      }),
+      body: JSON.stringify({ product_id: id }),
     });
 
-    const json = await response.json();
-
-    if (response.ok) console.log("product added");
+    if (response.ok)
+      toast.success("Product added to cart", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        progress: undefined,
+      });
   };
   return (
     <>

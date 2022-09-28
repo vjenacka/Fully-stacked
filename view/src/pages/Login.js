@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const { dispatch } = useAuthContext();
   const navigate = useNavigate();
 
@@ -21,11 +23,13 @@ const Login = () => {
       body: JSON.stringify({ username, password }),
     });
     const json = await response.json();
-
+    //reset the fields for new log in attempt
     if (!response.ok) {
       setUsername("");
       setPassword("");
       setError(json.error);
+      setIsLoading(false);
+      return;
     }
 
     if (response.ok) {
@@ -33,6 +37,13 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(json));
       dispatch({ type: "LOGIN", payload: json });
       setError(false);
+      toast.success("Logged in!", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        progress: undefined,
+      });
     }
     setIsLoading(false);
     navigate("/");
@@ -48,6 +59,7 @@ const Login = () => {
             name="username"
             value={username}
             onChange={e => setUsername(e.target.value)}
+            onFocus={() => setError(false)}
           />
         </div>
         <div className="form-control">
@@ -57,6 +69,7 @@ const Login = () => {
             name="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            onFocus={() => setError(false)}
           />
         </div>
         {error ? <div className="auth-error">{error}</div> : ""}

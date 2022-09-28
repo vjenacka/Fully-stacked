@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const Register = () => {
@@ -7,8 +8,10 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conPassword, setConPassword] = useState("");
+
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const { dispatch } = useAuthContext();
   const navigate = useNavigate();
 
@@ -30,13 +33,15 @@ const Register = () => {
       body: JSON.stringify({ username, email, password }),
     });
     const json = await response.json();
-
+    //reset the fields for new register attempt
     if (!response.ok) {
       setUsername("");
       setEmail("");
       setPassword("");
       setConPassword("");
       setError(json.error);
+      setIsLoading(false);
+      return;
     }
 
     if (response.ok) {
@@ -44,6 +49,13 @@ const Register = () => {
       localStorage.setItem("user", JSON.stringify(json));
       dispatch({ type: "LOGIN", payload: json });
       setError(false);
+      toast.success("Logged in!", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        progress: undefined,
+      });
     }
     setIsLoading(false);
     navigate("/");
@@ -59,6 +71,7 @@ const Register = () => {
             name="username"
             value={username}
             onChange={e => setUsername(e.target.value)}
+            onFocus={() => setError(false)}
           />
         </div>
         <div className="form-control">
@@ -68,6 +81,7 @@ const Register = () => {
             name="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
+            onFocus={() => setError(false)}
           />
         </div>
         <div className="form-control">
@@ -77,6 +91,7 @@ const Register = () => {
             name="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            onFocus={() => setError(false)}
           />
         </div>
         <div className="form-control">
@@ -86,6 +101,7 @@ const Register = () => {
             name="confirm-password"
             value={conPassword}
             onChange={e => setConPassword(e.target.value)}
+            onFocus={() => setError(false)}
           />
         </div>
         {error && <div className="auth-error">{error}</div>}

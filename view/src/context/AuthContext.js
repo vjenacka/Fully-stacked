@@ -15,7 +15,7 @@ export const authReducer = (state, action) => {
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, { user: null });
-
+  //initial check if user token in local storage
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
 
