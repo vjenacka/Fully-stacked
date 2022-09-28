@@ -3,7 +3,7 @@ const { createOrder } = require("../model/orderModel");
 const { querySingleUser } = require("../model/userModel");
 
 const getUserDetails = async (req, res) => {
-  const { user_id } = req.body;
+  const { user_id } = req;
   //check if there is a cart
   let cart = [];
   try {

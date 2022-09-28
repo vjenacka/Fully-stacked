@@ -7,7 +7,7 @@ const {
 } = require("../model/cartModel");
 
 const getCart = async (req, res) => {
-  const { user_id } = req.params;
+  const { user_id } = req;
 
   try {
     const cart = await getUserCart(user_id);
@@ -19,7 +19,8 @@ const getCart = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  const { user_id, product_id } = req.body;
+  const { user_id } = req;
+  const { product_id } = req.body;
 
   try {
     const cart = await addProductToCart(user_id, product_id);
@@ -31,7 +32,8 @@ const addProduct = async (req, res) => {
 };
 
 const removeProduct = async (req, res) => {
-  const { user_id, product_id } = req.body;
+  const { user_id } = req;
+  const { product_id } = req.body;
   try {
     await removeProductFromCart(user_id, product_id);
     res.json("Item removed");
@@ -41,7 +43,8 @@ const removeProduct = async (req, res) => {
 };
 
 const removeOne = async (req, res) => {
-  const { user_id, product_id } = req.body;
+  const { user_id } = req;
+  const { product_id } = req.body;
 
   try {
     const item = await removeOneProduct(user_id, product_id);
@@ -52,7 +55,8 @@ const removeOne = async (req, res) => {
 };
 
 const addOne = async (req, res) => {
-  const { user_id, product_id } = req.body;
+  const { user_id } = req;
+  const { product_id } = req.body;
 
   try {
     const item = await addOneProduct(user_id, product_id);

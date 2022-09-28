@@ -1,7 +1,7 @@
 const { querySingleUser, queryUserUpdate } = require("../model/userModel");
 
 const getUser = async (req, res) => {
-  const { id } = req.params;
+  const id = req.user_id;
 
   try {
     const user = await querySingleUser(id);
@@ -20,7 +20,7 @@ const getUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { id } = req.params;
+  const id = req.user_id;
   const { fullName, username, email, password, address, city, country } =
     req.body;
 
