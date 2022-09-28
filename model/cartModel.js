@@ -7,8 +7,6 @@ const getUserCart = async user_id => {
     [user_id]
   );
 
-  if (cartItems.rows.length === 0) throw Error("User cart is empty");
-
   return cartItems.rows;
 };
 //adds a product if not in cart or increase quantity

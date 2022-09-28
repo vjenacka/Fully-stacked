@@ -2,16 +2,23 @@ import React, { useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
 import EmptyCart from "../components/EmptyCart";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useCartContext } from "../hooks/useCartContext";
 
 function Cart() {
   const { cart, dispatch } = useCartContext(null);
   const [total, setTotal] = useState(0);
+
+  const { user } = useAuthContext();
   useEffect(() => {
-    const getCart = async id => {
-      const response = await fetch(
-        "/api/cart/1375cba6-2901-4639-a4b0-01b66794ed4b"
-      );
+    const getCart = async () => {
+      const response = await fetch("/api/cart/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
 
       let sum = 0;

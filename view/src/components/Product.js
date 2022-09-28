@@ -1,27 +1,44 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { toast } from "react-toastify";
 
 const Product = ({ product }) => {
   const [isHovered, setHover] = useState(false);
+  const { user } = useAuthContext();
+
   const style = {
     visibility: isHovered ? "visible" : "hidden",
   };
 
   const handleAddCart = async () => {
+    if (!user) {
+      toast.info("You need to be logged in to add a product to cart", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+      });
+      return;
+    }
     const response = await fetch("/api/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({
-        user_id: "1375cba6-2901-4639-a4b0-01b66794ed4b",
-        product_id: product.id,
-      }),
+      body: JSON.stringify({ product_id: product.id }),
     });
 
-    const json = await response.json();
-
-    if (response.ok) console.log("product added");
+    if (response.ok)
+      toast.success("Product added to cart", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        progress: undefined,
+      });
   };
   return (
     <div
