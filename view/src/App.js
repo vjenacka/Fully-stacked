@@ -5,6 +5,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import UserDetails from "./pages/UserDetails";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,6 +27,16 @@ function App() {
           <Route
             path="/cart"
             element={user ? <Cart></Cart> : <Navigate to={"/"}></Navigate>}
+          ></Route>
+          <Route
+            path="/profile"
+            element={
+              user ? (
+                <UserDetails></UserDetails>
+              ) : (
+                <Navigate to={"/"}></Navigate>
+              )
+            }
           ></Route>
           <Route
             path="/register"

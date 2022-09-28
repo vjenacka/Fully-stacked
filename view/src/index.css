@@ -25,11 +25,6 @@ a {
   color: inherit;
 }
 
-button:hover {
-  cursor: pointer;
-  background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
-}
-
 /*header styles*/
 header {
   position: fixed;
@@ -49,6 +44,7 @@ header {
 }
 
 nav {
+  position: relative;
   display: flex;
   width: 20%;
   align-items: center;
@@ -63,6 +59,41 @@ nav a {
 nav a:hover {
   background-color: #fff;
   transition: all 0.4s ease;
+}
+nav button {
+  font-family: "Poppins";
+  color: #374151;
+  padding: 7px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 15px;
+}
+nav button:hover {
+  background: #fff;
+  transition: all 0.4s ease;
+}
+.profile-nav {
+  position: absolute;
+  background: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  top: 50px;
+  left: -20px;
+  padding: 10px;
+  border-radius: 10px;
+  transition: visibility 0s, opacity 0.2s linear;
+}
+.profile-nav div {
+  background: #fff;
+  padding: 5px;
+  border: 2px solid #374151;
+  border-radius: 5px;
+}
+.profile-nav div span {
+  display: block;
+  margin: 5px;
+  font-weight: bold;
+  text-align: left;
 }
 /*loading spiner*/
 @keyframes spinner {
@@ -91,6 +122,10 @@ nav a:hover {
 /*products page styles*/
 main {
   margin-top: 100px;
+}
+button:hover {
+  cursor: pointer;
+  background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
 }
 .products {
   display: grid;
@@ -279,7 +314,7 @@ main {
   color: #fff;
   font-weight: bold;
 }
-/*Auth forms css*/
+/*Auth forms*/
 .auth-form {
   width: 30%;
   margin: 100px auto 0 auto;
@@ -321,4 +356,41 @@ main {
   color: #fff;
   background-color: var(--error);
   border-radius: 5px;
+}
+/*User details page*/
+.user-details {
+  width: 35%;
+  margin: 80px auto 0 auto;
+  padding: 20px 5px;
+}
+.user-details h4 {
+  font-size: 1.6rem;
+}
+.user-details ul {
+  border-top: 2px solid #374151;
+  padding: 10px 0;
+}
+.user-details ul p {
+  margin: 10px 0 0;
+  text-align: center;
+}
+.detail {
+  width: 85%;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.user-details a {
+  display: inline-block;
+  color: #fff;
+  font-size: 1.2rem;
+  margin: 5px;
+  padding: 10px 15px;
+  background: var(--bg-color);
+  border-radius: 5px;
+}
+.user-details a:hover {
+  cursor: pointer;
+  background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
 }
