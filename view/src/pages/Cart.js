@@ -33,7 +33,7 @@ function Cart() {
     };
 
     getCart();
-  }, []);
+  }, [dispatch, user.token]);
 
   const addToTotal = val => {
     const newTotal = Number((total + val).toFixed(2));

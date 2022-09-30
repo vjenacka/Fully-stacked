@@ -36,6 +36,7 @@ const Login = () => {
       //add  username and token to local storage
       localStorage.setItem("user", JSON.stringify(json));
       dispatch({ type: "LOGIN", payload: json });
+
       setError(false);
       toast.success("Logged in!", {
         position: "top-right",
@@ -60,6 +61,7 @@ const Login = () => {
             value={username}
             onChange={e => setUsername(e.target.value)}
             onFocus={() => setError(false)}
+            required
           />
         </div>
         <div className="form-control">
@@ -70,6 +72,7 @@ const Login = () => {
             value={password}
             onChange={e => setPassword(e.target.value)}
             onFocus={() => setError(false)}
+            required
           />
         </div>
         {error ? <div className="auth-error">{error}</div> : ""}
