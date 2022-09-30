@@ -36,6 +36,7 @@ const Login = () => {
       //add  username and token to local storage
       localStorage.setItem("user", JSON.stringify(json));
       dispatch({ type: "LOGIN", payload: json });
+
       setError(false);
       toast.success("Logged in!", {
         position: "top-right",

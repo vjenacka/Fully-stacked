@@ -359,8 +359,8 @@ button:hover {
 }
 /*User details page*/
 .user-details {
-  width: 35%;
-  margin: 80px auto 0 auto;
+  width: 40%;
+  margin: 100px auto 0 auto;
   padding: 20px 5px;
 }
 .user-details h4 {
@@ -390,7 +390,38 @@ button:hover {
   background: var(--bg-color);
   border-radius: 5px;
 }
-.user-details a:hover {
+.user-details a:hover,
+.user-details button:hover {
   cursor: pointer;
   background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
+  color: #fff;
+}
+/*profile edit form*/
+.user-details form {
+  margin: 15px 0;
+}
+.user-details form input {
+  width: 50%;
+  padding: 7px 10px;
+  border: 1px solid var(--bg-color);
+  border-radius: 5px;
+}
+.user-edit-btn {
+  margin-top: 15px;
+}
+.user-edit-btn :nth-child(1) {
+  background: var(--bg-color);
+  padding: 15px 20px;
+  font-size: 1.1rem;
+  color: #fff;
+  border-radius: 5px;
+}
+.user-edit-btn :nth-child(2) {
+  background: #fff;
+  padding: 12px 15px;
+  margin-left: 20px;
+  font-size: 1.1rem;
+  color: #374151;
+  border: 1px solid #374151;
+  border-radius: 5px;
 }

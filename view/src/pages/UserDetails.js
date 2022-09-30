@@ -3,29 +3,20 @@ import { Link } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { FaPencilAlt } from "react-icons/fa";
+import getUser from "../utils/getUser";
 
 const UserDetails = () => {
   const [userDetails, setUserDetails] = useState(null);
   const { user } = useAuthContext();
+
   useEffect(() => {
-    const getUser = async () => {
-      const response = await fetch("/api/user", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-
-      const json = await response.json();
-
-      if (response.ok) {
-        setUserDetails(json);
-      }
+    const getUserFetch = async () => {
+      const json = await getUser(user.token);
+      setUserDetails(json);
     };
 
-    getUser();
-  }, []);
+    getUserFetch();
+  }, [user.token]);
 
   return !userDetails ? (
     <LoadingSpinner></LoadingSpinner>
@@ -71,8 +62,8 @@ const UserDetails = () => {
           </span>
         </div>
       </ul>
-      <Link to={"/user-edit"}>
-        Edit <FaPencilAlt></FaPencilAlt>
+      <Link to={"/profile-edit"}>
+        Edit your info <FaPencilAlt></FaPencilAlt>
       </Link>
     </div>
   );
