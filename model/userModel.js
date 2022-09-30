@@ -1,50 +1,33 @@
 const pool = require("./database");
-const bcrypt = require("bcrypt");
-const isValidUser = require("../utils/registerValidation");
 
 const querySingleUser = async id => {
   const user = await pool.query('SELECT * FROM "user" WHERE id=$1', [id]);
 
   if (user.rows.length === 0) throw Error("No user found");
 
-  return user.rows[0];
+  const {
+    email,
+    username,
+    address,
+    city,
+    country,
+    full_name: fullName,
+  } = user.rows[0];
+
+  return { email, username, address, city, country, fullName };
 };
 
-const queryUserUpdate = async (
-  id,
-  fullName,
-  username,
-  email,
-  password,
-  address,
-  city,
-  country
-) => {
-  //validate user credentials
-  const { isError, errorMessage } = isValidUser(username, email, password);
-  if (isError) throw Error(errorMessage);
-
-  //check if username and email are taken
-  const userExists = await pool.query(
-    'SELECT * FROM "user" WHERE username=$1 OR email=$2',
-    [username, email]
-  );
-  if (userExists.rows.length > 0) throw Error("Username or email taken");
-
+const queryUserInfo = async (id, fullName, address, city, country) => {
   //check if user is in db
   const user = await pool.query('SELECT * FROM "user" WHERE id=$1', [id]);
   if (user.rows.length === 0) throw Error("User does not exist");
 
-  //encrypt the new password
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(password, salt);
-
   const updatedUser = await pool.query(
-    'UPDATE "user" SET full_name=$1, username=$2, email=$3, password=$4, address=$5, city=$6, country=$7 WHERE id=$8 RETURNING *',
-    [fullName, username, email, hash, address, city, country, id]
+    'UPDATE "user" SET full_name=$1, address=$2, city=$3, country=$4 WHERE id=$5 RETURNING *',
+    [fullName, address, city, country, id]
   );
-
-  return updatedUser.rows[0];
+  const { username } = updatedUser.rows[0];
+  return { username, fullName, address, city, country };
 };
 
-module.exports = { querySingleUser, queryUserUpdate };
+module.exports = { querySingleUser, queryUserInfo };

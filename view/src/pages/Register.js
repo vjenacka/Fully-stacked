@@ -72,6 +72,7 @@ const Register = () => {
             value={username}
             onChange={e => setUsername(e.target.value)}
             onFocus={() => setError(false)}
+            required
           />
         </div>
         <div className="form-control">
@@ -82,6 +83,7 @@ const Register = () => {
             value={email}
             onChange={e => setEmail(e.target.value)}
             onFocus={() => setError(false)}
+            required
           />
         </div>
         <div className="form-control">
@@ -92,6 +94,7 @@ const Register = () => {
             value={password}
             onChange={e => setPassword(e.target.value)}
             onFocus={() => setError(false)}
+            required
           />
         </div>
         <div className="form-control">
@@ -102,6 +105,7 @@ const Register = () => {
             value={conPassword}
             onChange={e => setConPassword(e.target.value)}
             onFocus={() => setError(false)}
+            required
           />
         </div>
         {error && <div className="auth-error">{error}</div>}
