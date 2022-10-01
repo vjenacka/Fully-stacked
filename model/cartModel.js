@@ -3,7 +3,7 @@ const pool = require("./database");
 const getUserCart = async user_id => {
   //joins the cart and product table and returns info about cart items
   const cartItems = await pool.query(
-    "SELECT product_id, count, name, price FROM cart INNER JOIN product ON cart.product_id = product.id WHERE user_id=$1",
+    "SELECT product_id, count, name, price, img_url FROM cart INNER JOIN product ON cart.product_id = product.id WHERE user_id=$1",
     [user_id]
   );
 

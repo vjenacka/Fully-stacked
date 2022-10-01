@@ -7,7 +7,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useCartContext } from "../hooks/useCartContext";
 import getUser from "../utils/getUser";
 
-function Cart({ validInfo }) {
+function Cart({}) {
   const { cart, dispatch } = useCartContext(null);
   const [total, setTotal] = useState(0);
 
