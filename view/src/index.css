@@ -289,6 +289,18 @@ button:hover {
   color: var(--bg-color);
   margin-right: 5px;
 }
+#checkout-btn {
+  float: right;
+  padding: 10px 18px;
+  margin-top: 10px;
+  background: var(--bg-color);
+  color: #fff;
+  border-radius: 5px;
+}
+#checkout-btn:hover {
+  cursor: pointer;
+  background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
+}
 /*Empty cart*/
 .cart-empty {
   padding-top: 30px;
@@ -397,6 +409,9 @@ button:hover {
   color: #fff;
 }
 /*profile edit form*/
+.user-details p {
+  margin: 5px 0;
+}
 .user-details form {
   margin: 15px 0;
 }
@@ -424,4 +439,5 @@ button:hover {
   color: #374151;
   border: 1px solid #374151;
   border-radius: 5px;
+  cursor: pointer;
 }
