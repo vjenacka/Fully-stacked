@@ -15,7 +15,7 @@ const Register = () => {
   const { dispatch } = useAuthContext();
   const navigate = useNavigate();
 
-  const handleSubmit = async e => {
+  const handleRegistration = async e => {
     e.preventDefault();
     setIsLoading(true);
     if (password !== conPassword) {
@@ -63,7 +63,7 @@ const Register = () => {
   return (
     <div className="auth-form">
       <h3>Create Account</h3>
-      <form onSubmit={e => handleSubmit(e)}>
+      <form onSubmit={e => handleRegistration(e)}>
         <div className="form-control">
           <label htmlFor="username">Username</label>
           <input

@@ -12,7 +12,7 @@ const Login = () => {
   const { dispatch } = useAuthContext();
   const navigate = useNavigate();
 
-  const handleSubmit = async e => {
+  const handleLogin = async e => {
     e.preventDefault();
     setIsLoading(true);
     const response = await fetch("/auth/login", {
@@ -52,7 +52,7 @@ const Login = () => {
   return (
     <div className="auth-form">
       <h3>Log in</h3>
-      <form onSubmit={e => handleSubmit(e)}>
+      <form onSubmit={e => handleLogin(e)}>
         <div className="form-control">
           <label htmlFor="username">Username</label>
           <input

@@ -27,7 +27,7 @@ const ProfileInfo = () => {
     userInfoFetch();
   }, [user.token]);
 
-  const handleSubmit = async e => {
+  const handleSaveInfo = async e => {
     e.preventDefault();
     const response = await fetch("/api/user", {
       method: "PUT",
@@ -53,7 +53,7 @@ const ProfileInfo = () => {
   return (
     <div className="user-details">
       <h4>Personal information</h4>
-      <form onSubmit={e => handleSubmit(e)}>
+      <form onSubmit={e => handleSaveInfo(e)}>
         <div className="detail">
           <label htmlFor="full-name">Full name:</label>
           <input
