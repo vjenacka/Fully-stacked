@@ -296,6 +296,7 @@ button:hover {
   background: var(--bg-color);
   color: #fff;
   border-radius: 5px;
+  font-size: 1.1rem;
 }
 #checkout-btn:hover {
   cursor: pointer;

@@ -35,10 +35,11 @@ const getUserDetails = async (req, res) => {
 };
 
 const processOrder = async (req, res) => {
+  const { user_id } = req;
   const { order } = req.body;
 
   try {
-    const newOrder = await createOrder(order);
+    const newOrder = await createOrder(order, user_id);
 
     res.json(newOrder);
   } catch (error) {

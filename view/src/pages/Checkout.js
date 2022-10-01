@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import CheckoutDetail from "../components/CheckoutDetail";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -8,6 +10,7 @@ function Checkout() {
   const [userDetails, setUserDetails] = useState(null);
   const [total, setTotal] = useState(0);
   const { user } = useAuthContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getCart = async () => {
@@ -26,7 +29,6 @@ function Checkout() {
         setUserDetails(json.user);
 
         json.cart.forEach(ele => {
-          console.log(ele);
           sum += Number((ele.price * ele.count).toFixed(2));
         });
         setTotal(sum);
@@ -34,9 +36,42 @@ function Checkout() {
     };
 
     getCart();
-  }, []);
+  }, [user.token]);
 
-  const handlePayment = () => {};
+  const handlePayment = async () => {
+    //get current date
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const dateStr = `${day}/${month}/${year}`;
+
+    const order = {
+      date: dateStr,
+      total_cost: Number(total.toFixed(2)),
+      products: cart,
+    };
+
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({ order }),
+    });
+
+    if (response.ok) {
+      toast.success("Order placed!", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        progress: undefined,
+      });
+      navigate("/orders");
+    }
+  };
   return (
     <>
       {!cart ? (
@@ -59,7 +94,7 @@ function Checkout() {
             Total: <span>{total.toFixed(2)} KM</span>
           </p>
           <div className="checkout-payment">
-            <button onClick={handlePayment()}>Pay with Stripe</button>
+            <button onClick={handlePayment}>Pay with Stripe</button>
           </div>
         </div>
       )}
