@@ -5,7 +5,8 @@ const {
 } = require("../controllers/checkoutController");
 const authorization = require("../middleware/authorization");
 
-router.get("/", authorization, getUserDetails);
+router.use(authorization);
+router.get("/", getUserDetails);
 router.post("/", processOrder);
 
 module.exports = router;

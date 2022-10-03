@@ -20,10 +20,10 @@ const getOrderById = async id => {
   return { ...order.rows[0], products: products.rows };
 };
 
-const createOrder = async order => {
+const createOrder = async (order, user_id) => {
   const newOrderID = await pool.query(
-    'INSERT INTO "order"(user_id,status,date,count,total_cost) VALUES ($1,$2,$3,$4,$5) RETURNING id',
-    [order.user_id, "pending", order.date, order.count, order.total_cost]
+    'INSERT INTO "order"(user_id,status,date,total_cost) VALUES ($1,$2,$3,$4) RETURNING id',
+    [user_id, "pending", order.date, order.total_cost]
   );
   //add all products to the order_item table
   const { id } = newOrderID.rows[0];

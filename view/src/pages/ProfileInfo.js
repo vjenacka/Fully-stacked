@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuthContext } from "../hooks/useAuthContext";
 import getUser from "../utils/getUser";
 
-const ProfileInfo = () => {
+const ProfileInfo = ({}) => {
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -20,7 +20,6 @@ const ProfileInfo = () => {
       setFullName(json.fullName);
       setAddress(json.address);
       setCity(json.city);
-      console.log(json.country);
       setCountry(json.country);
     };
 
@@ -46,13 +45,14 @@ const ProfileInfo = () => {
         closeOnClick: true,
         progress: undefined,
       });
-      navigate("/profile");
+      navigate(-1);
     }
   };
 
   return (
     <div className="user-details">
       <h4>Personal information</h4>
+      <p>Enter your information for placing an order:</p>
       <form onSubmit={e => handleSaveInfo(e)}>
         <div className="detail">
           <label htmlFor="full-name">Full name:</label>
@@ -92,7 +92,7 @@ const ProfileInfo = () => {
         </div>
         <div className="user-edit-btn">
           <button type="submit">Save</button>
-          <Link to={"/profile"}>Cancel</Link>
+          <span onClick={() => navigate(-1)}>Cancel</span>
         </div>
       </form>
     </div>

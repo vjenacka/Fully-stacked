@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import UserDetails from "./pages/UserDetails";
 import ProfileInfo from "./pages/ProfileInfo";
+import Checkout from "./pages/Checkout";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,6 +29,12 @@ function App() {
           <Route
             path="/cart"
             element={user ? <Cart></Cart> : <Navigate to={"/"}></Navigate>}
+          ></Route>
+          <Route
+            path="/checkout"
+            element={
+              user ? <Checkout></Checkout> : <Navigate to={"/"}></Navigate>
+            }
           ></Route>
           {/*profile routing*/}
           <Route
